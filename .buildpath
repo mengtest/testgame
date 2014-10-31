@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="con" path="org.ccdt.ldt.ExecutionEnvironmentContainer/lua/5.1"/>
+	<buildpathentry kind="con" path="org.ccdt.dltk.USER_LIBRARY/quickv3.2RC1"/>
+	<buildpathentry kind="con" path="org.ccdt.dltk.USER_LIBRARY/cocos2d-xv3.3RC0"/>
+</buildpath>
