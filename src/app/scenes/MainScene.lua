@@ -33,11 +33,39 @@ function MainScene:onExit()
 end
 
 function MainScene:addTouchLayer()
-    local function onTouch(eventName, x, y)
+    function onRequestFinished(event)
+        local ok = (event.name == "completed")
+        local request = event.request
+
+        if not ok then
+            -- 请求失败，显示错误代码和错误消息
+            print("Request failed, code:",request:getErrorCode(), request:getErrorMessage())
+            return
+        end
+
+        local code = request:getResponseStatusCode()
+        if code ~= 200 then
+            -- 请求结束，但没有返回 200 响应代码
+            print("Request is over, code:", code)
+            return
+        end
+
+        -- 请求成功，显示服务端返回的内容
+        local response = request:getResponseString()
+        print(response)
+    end
+
+    local function onTouch(eventName, x, y)    
         if eventName == "began" then
             self.player:walkTo({x=x, y=y})
+            local url = ''
+            local request = network.createHTTPRequest(onRequestFinished, "118.192.77.18:8005","POST")
+            request:addPOSTValue("pet1", "dabao")
+            request:addPOSTValue("pet2", "xiaobao")
+            request:start()
         end
     end
+    
     
     self.layerTouch = display.newLayer()
     self.layerTouch:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
